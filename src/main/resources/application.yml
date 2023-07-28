@@ -1,0 +1,49 @@
+micronaut:
+  application:
+    name: productcatalog
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+my:
+  name: 'Thanesh'
+
+#services:
+#  database:
+#    container_name: mysql_db
+#    image: mysql:8.0
+#    restart: always
+#    command: --default-authentication-plugin=mysql_native_password #don't do this in prod
+#    environment:
+#      - MYSQL_DATABASE=learn_micronaut
+#      - MYSQL_ROOT_PASSWORD=put_password_here
+#    volumes:
+#      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+#    ports:
+#      - "52000: 3306"
+#  adminer:
+#    container_name: adminer-db
+#    image: adminer
+#    restart: always
+#    ports:
+#      - "8086:8080"
+
+datasources:
+  default:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    db-type: mysql
+    dialect: MYSQL
+    url: ${DB_HOST:`jdbc:mysql://localhost:52000/learn_micronaut`}
+    username: ${DB_USER:`root`} #don't do this in prod, better to create separate user for security reason
+    password: ${DB_PASSWORD:`put_password_here`}
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+      clean-schema: true
+      url: ${DB_HOST:`jdbc:mysql://localhost:52000/learn_micronaut`}
+      user: ${DB_USER:`root`} #don't do this in prod, better to create separate user for security reason
+      password: ${DB_PASSWORD:`put_password_here`}
+
